@@ -1,0 +1,38 @@
+﻿@model TrainingMVC.Models.AssignRoleViewModel
+@{
+    ViewBag.Title = "AssignRole";
+}
+
+<h2>AssignRole</h2>
+@using (Html.BeginForm("AssignRole", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>Créer une connexion locale</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("Role", (IEnumerable<SelectListItem>)ViewBag.Roles, "Selectionner le role", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <label class = "col-md-2 control-label">Utilisateur </label>
+        <div class="col-md-10">
+            @Html.DropDownList("UserID", (IEnumerable<SelectListItem>)ViewBag.Users, "Selectionner un user", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Assigner le role" class="btn btn-default" />
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

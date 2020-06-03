@@ -1,0 +1,28 @@
+﻿@model IEnumerable<AvisFormation.Models.FormationAvisDto>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron text-center">
+    <h1>Avis Formation</h1>
+    <p class="lead">Choisissez la meilleure formation ! </p>
+</div>
+
+<div class="row">
+    @foreach (var formation in Model)
+    {
+        <div class="col-md-3">
+            <h2>@formation.Formation.Nom</h2>
+            @if (formation.Note == 0)
+            {
+                <p>Aucun avis</p>
+            }
+            else { 
+                <p>@formation.Note  /5</p>
+            }
+            <p>@formation.Formation.Description</p>
+        </div>
+    }
+    
+</div>

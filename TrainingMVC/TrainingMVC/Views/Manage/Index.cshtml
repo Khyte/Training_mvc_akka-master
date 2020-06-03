@@ -1,0 +1,116 @@
+﻿@model TrainingMVC.Models.IndexViewModel
+@{
+    ViewBag.Title = "Gérer";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Modifier vos paramètres de compte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @if (!User.IsInRole("Admin"))
+        {
+            <dt>Mot de passe :</dt>
+            <dd>
+                [
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Changer votre mot de passe", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Créer", "SetPassword")
+                }
+                ]
+            </dd>
+        }
+        else
+        {
+            <dt>Connexions externes :</dt>
+            <dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Gérer", "ManageLogins") ]
+            </dd>
+
+            <dt>Création d'un nouveau profil :</dt>
+            <dd>
+                @Html.ActionLink("Créer", "CreateRole", "Account", null, null)
+                @Html.ActionLink("Affectation de role", "AssignRole", "Account", null, null)
+            </dd>
+        }
+        @*
+            Les numéros de téléphone peuvent être utilisés en tant que second facteur de vérification dans un système d'authentification à 2 facteurs.
+
+             Consultez <a href="https://go.microsoft.com/fwlink/?LinkId=403804">cet article</a>
+                pour plus d'informations sur la configuration de cette application ASP.NET et la prise en charge de l'authentification à 2 facteurs à l'aide de SMS.
+
+             Décommentez le bloc suivant après avoir configuré l'authentification à 2 facteurs
+        *@
+        @*
+            <dt>Numéro de téléphone :</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None")
+                @if (Model.PhoneNumber != null)
+                {
+                    <br />
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>[<input type="submit" value="Supprimer" class="btn-link" />]</text>
+                    }
+                }
+                else
+                {
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                }
+            </dd>
+        *@
+
+    </dl>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">FullName</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">BirthDay</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <th scope="row">@student.Id</th>
+                        <td>@student.FullName</td>
+                        <td>@student.UserName</td>
+                        <td>@student.Email</td>
+                        <td>@student.BirthDay</td>
+                        <td>
+                            <a class="btn btn-primary" href="@Url.Action("Details","Manage", null)"> Détails</a>
+                            <a class="btn btn-primary" href="@Url.Action("Edit", "Manage", null)"> Modifier</a>
+                            <a class="btn btn-primary" href="@Url.Action("Delete", "Manage", null)"> Supprimer</a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    }
+</div>
+
+
+<h4>Affichage des informations de la session </h4>
+
+Session["user"] = @Session["user"]
+<hr />
+Session["age"] = @Session["age"] ans

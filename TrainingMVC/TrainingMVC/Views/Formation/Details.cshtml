@@ -1,0 +1,74 @@
+﻿@model TrainingMVC.DATA.Formation
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<dl>
+
+    <dt>Id : </dt>
+    <dd>@Model.Id  </dd>
+
+    <hr />
+    <dt>@Html.DisplayNameFor(model => model.Nom) : </dt>
+    <dd>@Html.DisplayFor(model => model.Nom)</dd>
+
+    <hr />
+    <dt>NomSeo : </dt>
+    <dd>@Html.DisplayFor(model => model.NomSeo)</dd>
+
+    <hr />
+    <dt>Url : </dt>
+    <dd>@Html.DisplayFor(model => model.Url)</dd>
+
+    <hr />
+    <dt>Description : </dt>
+    <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+</dl>
+
+@if (Model.Avis.Count > 0)
+{
+    <h3> Les avis des stagiaires </h3>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">DateAvis</th>
+                <th scope="col">Description</th>
+                <th scope="col">Note</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var avis in Model.Avis)
+            {
+                <tr>
+                    <td>@avis.Nom</td>
+                    <td>@avis.DateAvis</td>
+                    <td>@avis.Description</td>
+                    <td>
+                        @for (int i = 0; i < avis.Note; i++)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+
+    @Html.ActionLink("Toutes les formations", "Index", null, new { @class = "btn btn-outline-primary" })
+    @Html.ActionLink("Edit", "edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })
+    @*@Html.ActionLink("Ajouter un avis", "create", "avis", new { id = Model.Id }, new { @class = "btn btn-outline-primary" })*@
+    <a class="btn btn-outline-primary" href="/avis/create/@Model.Id">Ajouter un avis</a>
+
+</div>
+
+

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TrainingMVC.DATA.Formation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des formations </h2>
+
+@Html.ActionLink("Créer une formation", "Create")
+
+<form method="post">
+    <div class="form-row">
+        <div class="col-md-10">
+            <input type="text" class="form-control" placeholder="Nom de la formation à chercher" name="formationName" id="formationName" value="@ViewBag.formationName">
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-success" value="rechercher">
+        </div>
+    </div>
+</form>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">NomSeo</th>
+            <th scope="col">Url</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var formation in Model)
+        {
+        <tr>
+            <th scope="row">@formation.Id</th>
+            <td>@formation.Nom</td>
+            <td>@formation.NomSeo</td>
+            <td>@formation.Url</td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Details","Formation", new { nomSeo = formation.NomSeo })" > Détails</a>
+                <a class="btn btn-primary" href="@Url.Action("Edit", "Formation", new { nomSeo = formation.NomSeo })" > Modifier</a>
+                <a class="btn btn-primary" href="#"> Supprimer</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

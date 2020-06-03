@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNet.Identity
+
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "form-inline my-2 my-lg-0" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (Request.IsAuthenticated)
+    {
+
+        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class= "mr-sm-2" })
+        <a href="javascript:document.getElementById('logoutForm').submit()" class=" my-2 my-sm-0">Se déconnecter</a>
+    }
+    else
+    {
+        @*@Html.ActionLink("S'inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class= "mr-sm-2" })
+        @Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="my-2 my-sm-0" })*@
+
+        <a href="@Url.Action("Register","Account")" id="registerLink" class="mr-sm-2">
+            <i class="fas fa-user-circle fa-2x"></i>
+        </a>
+
+        <a href="@Url.Action("Login","Account")" id="loginLink" class="my-2 my-sm-0">
+            <i class="fas fa-sign-in-alt fa-2x"></i>
+        </a>
+    }
+}
