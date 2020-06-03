@@ -1,7 +1,26 @@
-﻿@{
+﻿@model IEnumerable<AvisFormation.Models.FormationAvisDto>
+
+@{
     ViewBag.Title = "Formation";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>Formation</p>
+<div class="row">
+    @foreach (var formation in Model)
+    {
+    <div class="col-md-3">
+        <h2>@formation.Formation.Nom</h2>
+        @if (formation.Note == 0)
+        {
+            <p>Aucun avis</p>
+        }
+        else
+        {
+            <p>@formation.Note  /5</p>
+        }
+        <p>@formation.Formation.Description</p>
+        <button>AJOUTER</button>
+    </div>
+    }
+</div>

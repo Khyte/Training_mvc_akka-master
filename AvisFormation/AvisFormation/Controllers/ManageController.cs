@@ -99,9 +99,17 @@ namespace AvisFormation.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/AddPhoneNumber
-        public ActionResult AddPhoneNumber()
+		[HttpPost]
+		public ActionResult AddFormInBasket()
+		{
+			
+
+			return View();
+		}
+
+		//
+		// GET: /Manage/AddPhoneNumber
+		public ActionResult AddPhoneNumber()
         {
             return View();
         }

@@ -14,7 +14,7 @@ namespace AvisFormation.Controllers
         public ActionResult Index()
         {
 
-            var fomrationsAvisList = new List<FormationAvisDto>();
+            var formationsAvisList = new List<FormationAvisDto>();
             var formations = db.Formation
                                         .OrderBy(_ => Guid.NewGuid())
                                         .Take(4)
@@ -24,17 +24,26 @@ namespace AvisFormation.Controllers
                 var dto = new FormationAvisDto();
                 dto.Formation = item;
                 dto.Note = (item.Avis.Count == 0 ) ? 0 : item.Avis.Average(a => a.Note);
-                fomrationsAvisList.Add(dto);
+				formationsAvisList.Add(dto);
             }
 
-            return View(fomrationsAvisList);
+            return View(formationsAvisList);
         }
 
         public ActionResult Formation()
         {
-            ViewBag.Message = "Your application description page.";
+			var formationsAvisList = new List<FormationAvisDto>();
+			var formations = db.Formation.ToList();
 
-            return View();
+			foreach (var item in formations)
+			{
+				var dto = new FormationAvisDto();
+				dto.Formation = item;
+				dto.Note = (item.Avis.Count == 0) ? 0 : item.Avis.Average(a => a.Note);
+				formationsAvisList.Add(dto);
+			}
+
+			return View(formationsAvisList);
         }
 
         public ActionResult Contact()
@@ -46,7 +55,7 @@ namespace AvisFormation.Controllers
 
 		public ActionResult Panier()
 		{
-			ViewBag.Message = "Your basket page.";
+			ViewBag.Message = "Your basket is empty!";
 
 			return View();
 		}
