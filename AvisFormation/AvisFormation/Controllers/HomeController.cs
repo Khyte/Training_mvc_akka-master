@@ -43,5 +43,19 @@ namespace AvisFormation.Controllers
 
             return View();
         }
-    }
+
+		public ActionResult Panier()
+		{
+			ViewBag.Message = "Your basket page.";
+
+			return View();
+		}
+
+		public ActionResult Langue()
+		{
+			ViewBag.Message = "Your language page.";
+
+			return null;
+		}
+	}
 }
